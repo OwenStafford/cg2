@@ -1,16 +1,17 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-background: #faf6ef;
+  --color-background: #faf5ea;
   --color-foreground: #1a1410;
-  --color-cream: #ede0c8;
-  --color-cream-deep: #d9c8a6;
+  --color-cream: #ecddbe;
+  --color-cream-deep: #d6c39b;
   --color-coffee: #4a2c1f;
   --color-coffee-dark: #2a1810;
   --color-coffee-light: #8b6243;
   --color-muted: #6b5544;
-  --color-accent: #b85c3b;
-  --color-border: #e5d9c2;
+  --color-accent: #c25a2e;
+  --color-accent-soft: #e89567;
+  --color-border: #e3d6bb;
   --font-sans: var(--font-geist-sans);
   --font-serif: var(--font-fraunces);
   --font-mono: var(--font-geist-mono);

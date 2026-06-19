@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Café Gourmet — Café de spécialité de Montréal",
-    "description": "Importateurs de café familiaux depuis 1985. Origines uniques, mélanges signature et service personnalisé pour cafés et connaisseurs."
+    "title": "Café Gourmet — Café de spécialité de Montréal · Depuis 1977",
+    "description": "Une torréfaction familiale montréalaise depuis 1977. Arabica d'origine unique, mélanges signature et service personnalisé de la famille Stafford."
   },
   "nav": {
     "shop": "Boutique",
@@ -15,16 +15,16 @@
     "cart": "Panier"
   },
   "home": {
-    "heroEyebrow": "Torréfacteurs familiaux depuis 1985",
+    "heroEyebrow": "Torréfacteurs familiaux depuis 1977",
     "heroTitle": "Du café, de l'origine à Montréal, jusqu'à votre tasse.",
-    "heroSubtitle": "Deux sœurs. Une obsession. Quarante ans à sourcer des grains exceptionnels chez des producteurs devenus famille.",
+    "heroSubtitle": "Deux sœurs. Une passion familiale. Près de cinquante ans à sourcer des grains exceptionnels chez des producteurs qu'on connaît par leur nom.",
     "heroCta": "Voir la collection",
     "heroCtaSecondary": "Notre histoire",
     "featuredTitle": "Torréfactions vedettes",
     "featuredSubtitle": "Sélectionnées à la main cette saison.",
     "viewAll": "Voir tous les cafés",
     "storyTitle": "Une entreprise familiale, infusée lentement.",
-    "storyBody": "Nous avons fondé Café Gourmet à notre table de cuisine, rue Beaubien. Quarante ans plus tard, nous goûtons encore chaque arrivage nous-mêmes — c'est la seule façon de savoir qu'il vaut votre temps.",
+    "storyBody": "Nous avons ouvert sur l'avenue Greene à Westmount en 1977 — à une époque où la plupart des Montréalais n'avaient jamais goûté un café d'origine unique. Près de cinquante ans plus tard, nous goûtons encore chaque lot nous-mêmes. C'est la seule façon de savoir qu'il vaut votre temps.",
     "storyCta": "Lire notre histoire"
   },
   "shop": {
@@ -60,15 +60,27 @@
     "comingSoon": "Le paiement est en cours de configuration."
   },
   "about": {
-    "title": "Notre histoire",
-    "comingSoon": "Contenu à venir."
+    "eyebrow": "Notre histoire",
+    "title": "Torréfacteurs familiaux depuis 1977.",
+    "lede": "Café Gourmet a commencé dans une petite boutique de l'avenue Greene, fondée par un amateur de vin tombé en amour avec le café. Quarante-neuf ans plus tard, la passion reste dans la famille.",
+    "section1Title": "Comment tout a commencé",
+    "section1Body": "Au début des années 70, Don Stafford — un Montréalais amateur de vin — a remarqué que la dégustation du café ressemblait beaucoup à celle du vin. Les arômes. Les origines. La façon dont un seul domaine pouvait goûter complètement différent de son voisin. Il a approfondi la science et le sourcing, et en 1977 il a ouvert le Coffee Gourmet Centre sur l'avenue Greene à Westmount avec sa femme Rita. C'était l'une des premières boutiques de café de spécialité à Montréal.",
+    "section2Title": "Comment ça continue",
+    "section2Body": "Une seconde succursale a ouvert au Marché de l'Ouest en 1981. Après le décès de Don en 1994, Rita a poursuivi l'entreprise avec ses filles — Lynn et Donna — depuis la salle de montre familiale de Dorval. Elles torréfient et expédient depuis. Mêmes standards. Mêmes fournisseurs de café vert. Même insistance à goûter chaque lot avant qu'il ne sorte.",
+    "section3Title": "Ce en quoi nous croyons",
+    "section3Body": "De l'Arabica d'origine unique, provenant de domaines que nous connaissons par leur nom. Torréfié pour révéler ce qui est vraiment dans la tasse, pas pour le masquer. Petits lots. Meilleur café. Aucun raccourci, même sur le mélange maison.",
+    "section4Title": "Redonner",
+    "section4Body": "Nous soutenons la Fondation de l'Hôpital de Montréal pour enfants, Enfant-Retour Québec, et Kingston 4 Paws Service Dogs. Localement, nous parrainons les écoles et le sport jeunesse de Dorval. Notre programme de financement Beans for Bucks permet aux écoles et organismes de revendre des sacs de café ou de chocolat chaud personnalisés pour soutenir leurs causes.",
+    "visitTitle": "Venez nous voir",
+    "visitBody": "1564, ch. Herron, suite 201, Dorval, QC H9S 1B7",
+    "visitPhone": "514.631.1131"
   },
   "contact": {
     "title": "Contact",
     "comingSoon": "Formulaire de contact à venir."
   },
   "footer": {
-    "tagline": "Importateurs de café de spécialité • Montréal",
+    "tagline": "Importateurs de café de spécialité · Montréal · Depuis 1977",
     "shop": "Boutique",
     "company": "Entreprise",
     "legal": "Légal",

@@ -1,7 +1,7 @@
 {
   "metadata": {
-    "title": "Café Gourmet — Specialty Coffee from Montréal",
-    "description": "Family-run coffee importers since 1985. Single-origin, signature blends, and custom service for cafés and connoisseurs."
+    "title": "Café Gourmet — Specialty Coffee from Montréal · Since 1977",
+    "description": "A Montréal family roastery since 1977. Single-origin Arabica, signature blends, and custom service from the Stafford family."
   },
   "nav": {
     "shop": "Shop",
@@ -15,16 +15,16 @@
     "cart": "Cart"
   },
   "home": {
-    "heroEyebrow": "Family roasters since 1985",
+    "heroEyebrow": "Family roasters since 1977",
     "heroTitle": "Coffee from origin, to Montréal, to your cup.",
-    "heroSubtitle": "Two sisters. One obsession. Forty years of sourcing exceptional beans from farms we've come to call family.",
+    "heroSubtitle": "Two sisters. One family obsession. Nearly fifty years of sourcing exceptional beans from farms we've come to know by name.",
     "heroCta": "Shop the collection",
     "heroCtaSecondary": "Our story",
     "featuredTitle": "Featured roasts",
     "featuredSubtitle": "Hand-picked this season.",
     "viewAll": "View all coffees",
     "storyTitle": "A family business, brewed slowly.",
-    "storyBody": "We started Café Gourmet at our kitchen table on rue Beaubien. Four decades later we still taste every shipment ourselves — because that's the only way to know it's worth your time.",
+    "storyBody": "We opened on Greene Avenue in Westmount in 1977 — when most Montrealers had never tasted a single-origin. Almost fifty years later, we still taste every lot ourselves. It's the only way to know it's worth your time.",
     "storyCta": "Read our story"
   },
   "shop": {
@@ -60,15 +60,27 @@
     "comingSoon": "Checkout is being wired up."
   },
   "about": {
-    "title": "Our story",
-    "comingSoon": "About page content coming soon."
+    "eyebrow": "Our story",
+    "title": "Family roasters since 1977.",
+    "lede": "Café Gourmet started in a small shop on Greene Avenue with a wine lover who'd fallen for coffee. Forty-nine years later, the obsession is still in the family.",
+    "section1Title": "How it started",
+    "section1Body": "In the early '70s, Don Stafford — a Montrealer who loved wine — noticed that cupping coffee felt a lot like tasting it. The aromatics. The origins. The way a single estate could taste nothing like its neighbour. He went deep on the science and the sourcing, and in 1977 he opened The Coffee Gourmet Centre on Greene Avenue in Westmount with his wife Rita. It was one of the first specialty coffee shops in Montreal.",
+    "section2Title": "How it continues",
+    "section2Body": "A second location opened at Marché de l'Ouest in 1981. After Don passed in 1994, Rita kept the business going with her daughters — Lynn and Donna — from the family's Dorval showroom. The two of them have been roasting and shipping ever since. Same standards. Same green-coffee suppliers. Same insistence on tasting every lot before it goes out the door.",
+    "section3Title": "What we believe",
+    "section3Body": "Single-origin Arabica from estates we know by name. Roasted to bring out what's actually in the cup, not to cover it up. Smaller batches. Better coffee. No shortcuts, even on the house blend.",
+    "section4Title": "Giving back",
+    "section4Body": "We support the Montreal Children's Hospital Foundation, Enfant-Retour Québec (the Missing Children's Network), and Kingston 4 Paws Service Dogs. Locally, we sponsor Dorval schools and youth sports. Our Beans for Bucks fundraising program lets schools and organizations resell custom-branded bags of coffee or hot chocolate to raise money for their causes.",
+    "visitTitle": "Visit us",
+    "visitBody": "1564 Ch. Herron, Suite 201, Dorval, QC H9S 1B7",
+    "visitPhone": "514.631.1131"
   },
   "contact": {
     "title": "Contact",
     "comingSoon": "Contact form coming soon."
   },
   "footer": {
-    "tagline": "Specialty coffee importers • Montréal",
+    "tagline": "Specialty coffee importers · Montréal · Since 1977",
     "shop": "Shop",
     "company": "Company",
     "legal": "Legal",
