@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "title": "Café Gourmet — Specialty Coffee from Montréal",
+    "description": "Family-run coffee importers since 1985. Single-origin, signature blends, and custom service for cafés and connoisseurs."
+  },
+  "nav": {
+    "shop": "Shop",
+    "signatureBlends": "Signature Blends",
+    "tea": "Tea",
+    "gifts": "Gifts",
+    "customService": "Custom Service",
+    "about": "About",
+    "contact": "Contact",
+    "account": "Account",
+    "cart": "Cart"
+  },
+  "home": {
+    "heroEyebrow": "Family roasters since 1985",
+    "heroTitle": "Coffee from origin, to Montréal, to your cup.",
+    "heroSubtitle": "Two sisters. One obsession. Forty years of sourcing exceptional beans from farms we've come to call family.",
+    "heroCta": "Shop the collection",
+    "heroCtaSecondary": "Our story",
+    "featuredTitle": "Featured roasts",
+    "featuredSubtitle": "Hand-picked this season.",
+    "viewAll": "View all coffees",
+    "storyTitle": "A family business, brewed slowly.",
+    "storyBody": "We started Café Gourmet at our kitchen table on rue Beaubien. Four decades later we still taste every shipment ourselves — because that's the only way to know it's worth your time.",
+    "storyCta": "Read our story"
+  },
+  "shop": {
+    "title": "Shop",
+    "filterAll": "All",
+    "filterCoffee": "Coffee",
+    "filterTea": "Tea",
+    "filterGifts": "Gifts",
+    "addToCart": "Add to cart",
+    "outOfStock": "Out of stock"
+  },
+  "product": {
+    "origin": "Origin",
+    "roast": "Roast",
+    "tastingNotes": "Tasting notes",
+    "weight": "Weight",
+    "grind": "Grind",
+    "quantity": "Quantity",
+    "addToCart": "Add to cart",
+    "description": "Description"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty.",
+    "emptyCta": "Continue shopping",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping calculated at checkout",
+    "checkout": "Checkout",
+    "remove": "Remove"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "comingSoon": "Checkout is being wired up."
+  },
+  "about": {
+    "title": "Our story",
+    "comingSoon": "About page content coming soon."
+  },
+  "contact": {
+    "title": "Contact",
+    "comingSoon": "Contact form coming soon."
+  },
+  "footer": {
+    "tagline": "Specialty coffee importers • Montréal",
+    "shop": "Shop",
+    "company": "Company",
+    "legal": "Legal",
+    "privacy": "Privacy policy",
+    "terms": "Terms & conditions",
+    "rights": "All rights reserved."
+  }
+}

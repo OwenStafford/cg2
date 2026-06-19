@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "title": "Café Gourmet — Café de spécialité de Montréal",
+    "description": "Importateurs de café familiaux depuis 1985. Origines uniques, mélanges signature et service personnalisé pour cafés et connaisseurs."
+  },
+  "nav": {
+    "shop": "Boutique",
+    "signatureBlends": "Mélanges signature",
+    "tea": "Thé",
+    "gifts": "Cadeaux",
+    "customService": "Service personnalisé",
+    "about": "À propos",
+    "contact": "Contact",
+    "account": "Compte",
+    "cart": "Panier"
+  },
+  "home": {
+    "heroEyebrow": "Torréfacteurs familiaux depuis 1985",
+    "heroTitle": "Du café, de l'origine à Montréal, jusqu'à votre tasse.",
+    "heroSubtitle": "Deux sœurs. Une obsession. Quarante ans à sourcer des grains exceptionnels chez des producteurs devenus famille.",
+    "heroCta": "Voir la collection",
+    "heroCtaSecondary": "Notre histoire",
+    "featuredTitle": "Torréfactions vedettes",
+    "featuredSubtitle": "Sélectionnées à la main cette saison.",
+    "viewAll": "Voir tous les cafés",
+    "storyTitle": "Une entreprise familiale, infusée lentement.",
+    "storyBody": "Nous avons fondé Café Gourmet à notre table de cuisine, rue Beaubien. Quarante ans plus tard, nous goûtons encore chaque arrivage nous-mêmes — c'est la seule façon de savoir qu'il vaut votre temps.",
+    "storyCta": "Lire notre histoire"
+  },
+  "shop": {
+    "title": "Boutique",
+    "filterAll": "Tout",
+    "filterCoffee": "Café",
+    "filterTea": "Thé",
+    "filterGifts": "Cadeaux",
+    "addToCart": "Ajouter au panier",
+    "outOfStock": "Épuisé"
+  },
+  "product": {
+    "origin": "Origine",
+    "roast": "Torréfaction",
+    "tastingNotes": "Notes de dégustation",
+    "weight": "Poids",
+    "grind": "Mouture",
+    "quantity": "Quantité",
+    "addToCart": "Ajouter au panier",
+    "description": "Description"
+  },
+  "cart": {
+    "title": "Votre panier",
+    "empty": "Votre panier est vide.",
+    "emptyCta": "Continuer vos achats",
+    "subtotal": "Sous-total",
+    "shipping": "Livraison calculée au paiement",
+    "checkout": "Paiement",
+    "remove": "Retirer"
+  },
+  "checkout": {
+    "title": "Paiement",
+    "comingSoon": "Le paiement est en cours de configuration."
+  },
+  "about": {
+    "title": "Notre histoire",
+    "comingSoon": "Contenu à venir."
+  },
+  "contact": {
+    "title": "Contact",
+    "comingSoon": "Formulaire de contact à venir."
+  },
+  "footer": {
+    "tagline": "Importateurs de café de spécialité • Montréal",
+    "shop": "Boutique",
+    "company": "Entreprise",
+    "legal": "Légal",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions générales",
+    "rights": "Tous droits réservés."
+  }
+}
