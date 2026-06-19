@@ -26,11 +26,11 @@ export default async function ShopPage({
   setRequestLocale(locale);
   const t = await getTranslations("shop");
 
-  const active = (category as ProductCategory) ?? "all";
-  const products =
-    active === "all"
-      ? listProducts()
-      : listProducts(active as ProductCategory);
+  const active: "all" | ProductCategory =
+    category === "coffee" || category === "tea" || category === "gift"
+      ? category
+      : "all";
+  const products = active === "all" ? listProducts() : listProducts(active);
 
   return (
     <Container className="py-14">
