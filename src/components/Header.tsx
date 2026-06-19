@@ -2,7 +2,8 @@ import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Container } from "./Container";
 import { LocaleSwitcher } from "./LocaleSwitcher";
-import { ShoppingBag, User } from "lucide-react";
+import { CartIconWithBadge } from "./CartIconWithBadge";
+import { User } from "lucide-react";
 
 export async function Header() {
   const t = await getTranslations("nav");
@@ -59,13 +60,7 @@ export async function Header() {
           >
             <User className="h-5 w-5" />
           </Link>
-          <Link
-            href="/cart"
-            className="text-muted hover:text-coffee transition-colors"
-            aria-label={t("cart")}
-          >
-            <ShoppingBag className="h-5 w-5" />
-          </Link>
+          <CartIconWithBadge ariaLabel={t("cart")} />
         </div>
       </Container>
     </header>
