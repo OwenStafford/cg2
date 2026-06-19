@@ -60,7 +60,13 @@
   },
   "checkout": {
     "title": "Checkout",
-    "comingSoon": "Checkout is being wired up."
+    "comingSoon": "Checkout is being wired up.",
+    "successTitle": "Thank you for your order.",
+    "successBody": "We're already getting it ready. A receipt is on its way to your inbox.",
+    "orderRef": "Order reference",
+    "continueShopping": "Continue shopping",
+    "preparing": "Preparing checkout…",
+    "failed": "Something went wrong. Please try again."
   },
   "about": {
     "eyebrow": "Our story",

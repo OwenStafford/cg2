@@ -60,7 +60,13 @@
   },
   "checkout": {
     "title": "Paiement",
-    "comingSoon": "Le paiement est en cours de configuration."
+    "comingSoon": "Le paiement est en cours de configuration.",
+    "successTitle": "Merci pour votre commande.",
+    "successBody": "Nous la préparons déjà. Un reçu vous attend dans votre boîte de réception.",
+    "orderRef": "Référence de commande",
+    "continueShopping": "Continuer vos achats",
+    "preparing": "Préparation du paiement…",
+    "failed": "Une erreur s'est produite. Veuillez réessayer."
   },
   "about": {
     "eyebrow": "Notre histoire",

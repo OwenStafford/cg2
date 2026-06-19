@@ -10,6 +10,7 @@ import {
   type CartItem,
 } from "@/lib/cart";
 import { formatPrice } from "@/lib/format";
+import { CheckoutButton } from "./CheckoutButton";
 import type { Locale } from "@/i18n/routing";
 
 export function CartContents({ locale }: { locale: Locale }) {
@@ -66,12 +67,7 @@ export function CartContents({ locale }: { locale: Locale }) {
           <span className="font-medium">{formatPrice(subtotal, locale)}</span>
         </div>
         <p className="text-xs text-muted">{t("shipping")}</p>
-        <Link
-          href="/checkout"
-          className="inline-flex w-full items-center justify-center rounded-full bg-coffee-dark px-6 py-3 text-sm font-medium text-cream hover:bg-coffee transition-colors"
-        >
-          {t("checkout")}
-        </Link>
+        <CheckoutButton />
       </aside>
     </div>
   );
