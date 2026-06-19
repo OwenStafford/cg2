@@ -1,0 +1,88 @@
+import { notFound } from "next/navigation";
+import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Container } from "@/components/Container";
+import { getProduct, products } from "@/lib/products";
+import { formatPrice } from "@/lib/format";
+import type { Locale } from "@/i18n/routing";
+
+export function generateStaticParams() {
+  return products.map((p) => ({ slug: p.slug }));
+}
+
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}) {
+  const { locale, slug } = await params;
+  setRequestLocale(locale);
+  const product = getProduct(slug);
+  if (!product) notFound();
+
+  const t = await getTranslations("product");
+  const tShop = await getTranslations("shop");
+
+  return (
+    <Container className="py-14">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="relative aspect-square overflow-hidden rounded-md bg-cream">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={product.imageUrl}
+            alt={product.name[locale]}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        </div>
+
+        <div>
+          {product.origin && (
+            <div className="text-xs uppercase tracking-[0.2em] text-accent">
+              {product.origin[locale]}
+            </div>
+          )}
+          <h1 className="mt-3 font-serif text-4xl text-coffee-dark leading-tight">
+            {product.name[locale]}
+          </h1>
+          <div className="mt-3 text-xl text-coffee">
+            {formatPrice(product.priceCents, locale)}
+          </div>
+
+          <p className="mt-7 text-muted leading-relaxed">
+            {product.description[locale]}
+          </p>
+
+          <dl className="mt-8 space-y-3 text-sm">
+            {product.roast && (
+              <div className="flex gap-3">
+                <dt className="w-28 text-muted">{t("roast")}</dt>
+                <dd className="text-coffee-dark capitalize">{product.roast}</dd>
+              </div>
+            )}
+            {product.tastingNotes && (
+              <div className="flex gap-3">
+                <dt className="w-28 text-muted">{t("tastingNotes")}</dt>
+                <dd className="text-coffee-dark">
+                  {product.tastingNotes[locale].join(" · ")}
+                </dd>
+              </div>
+            )}
+            {product.weightGrams && (
+              <div className="flex gap-3">
+                <dt className="w-28 text-muted">{t("weight")}</dt>
+                <dd className="text-coffee-dark">{product.weightGrams}g</dd>
+              </div>
+            )}
+          </dl>
+
+          <button
+            type="button"
+            disabled={!product.inStock}
+            className="mt-10 inline-flex items-center justify-center rounded-full bg-coffee-dark px-8 py-3 text-sm font-medium text-cream hover:bg-coffee transition-colors disabled:bg-muted disabled:cursor-not-allowed"
+          >
+            {product.inStock ? t("addToCart") : tShop("outOfStock")}
+          </button>
+        </div>
+      </div>
+    </Container>
+  );
+}
