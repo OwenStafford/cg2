@@ -24,7 +24,7 @@ export const products: Product[] = [
     },
     priceCents: 2400,
     weightGrams: 340,
-    imageUrl: "https://images.unsplash.com/photo-1559525839-d9acfd24f9e0?w=1200&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1497515114629-f71d768fd07c?w=1200&q=80",
     featured: true,
     inStock: true,
   },
@@ -105,7 +105,7 @@ export const products: Product[] = [
     },
     priceCents: 2000,
     weightGrams: 340,
-    imageUrl: "https://images.unsplash.com/photo-1542379653-b204b8b81b67?w=1200&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1517959105821-eaf2591984ca?w=1200&q=80",
     inStock: true,
   },
   {
