@@ -44,7 +44,10 @@
     "grind": "Mouture",
     "quantity": "Quantité",
     "addToCart": "Ajouter au panier",
-    "description": "Description"
+    "added": "Ajouté",
+    "description": "Description",
+    "decrease": "Diminuer la quantité",
+    "increase": "Augmenter la quantité"
   },
   "cart": {
     "title": "Votre panier",

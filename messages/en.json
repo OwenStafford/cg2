@@ -44,7 +44,10 @@
     "grind": "Grind",
     "quantity": "Quantity",
     "addToCart": "Add to cart",
-    "description": "Description"
+    "added": "Added",
+    "description": "Description",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity"
   },
   "cart": {
     "title": "Your cart",

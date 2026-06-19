@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/Container";
+import { AddToCartButton } from "@/components/AddToCartButton";
 import { getProduct, listAllSlugs } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import type { Locale } from "@/i18n/routing";
@@ -75,13 +76,17 @@ export default async function ProductPage({
             )}
           </dl>
 
-          <button
-            type="button"
-            disabled={!product.inStock}
-            className="mt-10 inline-flex items-center justify-center rounded-full bg-coffee-dark px-8 py-3 text-sm font-medium text-cream hover:bg-coffee transition-colors disabled:bg-muted disabled:cursor-not-allowed"
-          >
-            {product.inStock ? t("addToCart") : tShop("outOfStock")}
-          </button>
+          <AddToCartButton
+            product={{
+              productId: product.id,
+              slug: product.slug,
+              nameEn: product.name.en,
+              nameFr: product.name.fr,
+              imageUrl: product.imageUrl,
+              priceCents: product.priceCents,
+            }}
+            inStock={product.inStock}
+          />
         </div>
       </div>
     </Container>
