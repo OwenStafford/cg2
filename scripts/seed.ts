@@ -36,7 +36,6 @@ async function main() {
 
   console.log(`Seeding ${rows.length} products...`);
 
-  // Upsert by id so re-runs are idempotent
   for (const row of rows) {
     await db
       .insert(productsTable)

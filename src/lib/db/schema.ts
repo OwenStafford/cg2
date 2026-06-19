@@ -39,7 +39,6 @@ export const products = pgTable("products", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
-// Mirrors Supabase Auth users — id matches auth.users.id (UUID).
 export const customers = pgTable("customers", {
   id: uuid("id").primaryKey(),
   email: text("email").notNull().unique(),

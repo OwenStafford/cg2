@@ -17,10 +17,7 @@ export async function createClient() {
             cookiesToSet.forEach(({ name, value, options }) =>
               cookieStore.set(name, value, options),
             );
-          } catch {
-            // Called from a Server Component — session refresh is handled
-            // by proxy.ts, so this can be safely ignored here.
-          }
+          } catch {}
         },
       },
     },

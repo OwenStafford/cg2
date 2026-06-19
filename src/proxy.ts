@@ -6,11 +6,8 @@ import { routing } from "./i18n/routing";
 const intlMiddleware = createMiddleware(routing);
 
 export default async function proxy(request: NextRequest) {
-  // 1. next-intl handles locale routing & produces the response.
   const response = intlMiddleware(request);
 
-  // 2. Supabase reads request cookies and refreshes session cookies onto the
-  //    response. Calling getUser() triggers the refresh if needed.
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,

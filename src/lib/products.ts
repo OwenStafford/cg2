@@ -5,7 +5,6 @@ import type { Product } from "./types";
 import type { ProductCategory } from "./db/enums";
 import type { Product as ProductRow } from "./db/schema";
 
-// Map a DB row to the locale-shaped Product the UI expects.
 function toProduct(row: ProductRow): Product {
   return {
     id: row.id,
