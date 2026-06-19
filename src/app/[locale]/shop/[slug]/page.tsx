@@ -1,12 +1,13 @@
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/Container";
-import { getProduct, products } from "@/lib/products";
+import { getProduct, listAllSlugs } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import type { Locale } from "@/i18n/routing";
 
-export function generateStaticParams() {
-  return products.map((p) => ({ slug: p.slug }));
+export async function generateStaticParams() {
+  const slugs = await listAllSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export default async function ProductPage({
@@ -16,7 +17,7 @@ export default async function ProductPage({
 }) {
   const { locale, slug } = await params;
   setRequestLocale(locale);
-  const product = getProduct(slug);
+  const product = await getProduct(slug);
   if (!product) notFound();
 
   const t = await getTranslations("product");

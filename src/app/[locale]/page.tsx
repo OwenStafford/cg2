@@ -14,7 +14,7 @@ export default async function HomePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("home");
-  const featured = listFeatured();
+  const featured = await listFeatured();
 
   return (
     <>

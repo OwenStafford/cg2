@@ -4,7 +4,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { Link } from "@/i18n/navigation";
 import { listProducts } from "@/lib/products";
 import type { Locale } from "@/i18n/routing";
-import type { ProductCategory } from "@/lib/types";
+import type { ProductCategory } from "@/lib/db/enums";
 import { clsx } from "clsx";
 
 const CATEGORIES: { key: "all" | ProductCategory; label: string }[] = [
@@ -30,7 +30,8 @@ export default async function ShopPage({
     category === "coffee" || category === "tea" || category === "gift"
       ? category
       : "all";
-  const products = active === "all" ? listProducts() : listProducts(active);
+  const products =
+    active === "all" ? await listProducts() : await listProducts(active);
 
   return (
     <Container className="py-14">

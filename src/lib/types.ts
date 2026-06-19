@@ -1,8 +1,5 @@
 import type { Locale } from "@/i18n/routing";
-
-export type ProductCategory = "coffee" | "tea" | "gift";
-
-export type RoastLevel = "light" | "medium" | "medium-dark" | "dark" | "espresso";
+import type { ProductCategory, RoastLevel } from "./db/enums";
 
 export type Localized<T> = Record<Locale, T>;
 
