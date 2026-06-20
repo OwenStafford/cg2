@@ -97,6 +97,18 @@
     "passwordTooShort": "Password must be at least 6 characters.",
     "genericError": "Something went wrong. Please try again."
   },
+  "orders": {
+    "title": "Your orders",
+    "empty": "You haven't placed any orders yet.",
+    "placedOn": "Placed",
+    "reference": "Reference",
+    "total": "Total",
+    "statusPending": "Pending",
+    "statusPaid": "Paid",
+    "statusFulfilled": "Shipped",
+    "statusCancelled": "Cancelled",
+    "statusRefunded": "Refunded"
+  },
   "about": {
     "eyebrow": "Our story",
     "title": "Don and Rita Stafford. 1977.",

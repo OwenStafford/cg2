@@ -6,3 +6,11 @@ export function formatPrice(cents: number, locale: Locale): string {
     currency: "CAD",
   }).format(cents / 100);
 }
+
+export function formatDate(date: Date, locale: Locale): string {
+  return new Intl.DateTimeFormat(locale === "fr" ? "fr-CA" : "en-CA", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
