@@ -1,4 +1,5 @@
 import "server-only";
+import { cache } from "react";
 import { eq } from "drizzle-orm";
 import { db, products as productsTable } from "./db";
 import type { Product } from "./types";
@@ -29,36 +30,38 @@ function toProduct(row: ProductRow): Product {
   };
 }
 
-export async function getProduct(slug: string): Promise<Product | undefined> {
-  const [row] = await db
-    .select()
-    .from(productsTable)
-    .where(eq(productsTable.slug, slug))
-    .limit(1);
-  return row ? toProduct(row) : undefined;
-}
+export const getProduct = cache(
+  async (slug: string): Promise<Product | undefined> => {
+    const [row] = await db
+      .select()
+      .from(productsTable)
+      .where(eq(productsTable.slug, slug))
+      .limit(1);
+    return row ? toProduct(row) : undefined;
+  },
+);
 
-export async function listProducts(
-  category?: ProductCategory,
-): Promise<Product[]> {
-  const rows = category
-    ? await db
-        .select()
-        .from(productsTable)
-        .where(eq(productsTable.category, category))
-    : await db.select().from(productsTable);
-  return rows.map(toProduct);
-}
+export const listProducts = cache(
+  async (category?: ProductCategory): Promise<Product[]> => {
+    const rows = category
+      ? await db
+          .select()
+          .from(productsTable)
+          .where(eq(productsTable.category, category))
+      : await db.select().from(productsTable);
+    return rows.map(toProduct);
+  },
+);
 
-export async function listFeatured(): Promise<Product[]> {
+export const listFeatured = cache(async (): Promise<Product[]> => {
   const rows = await db
     .select()
     .from(productsTable)
     .where(eq(productsTable.featured, true));
   return rows.map(toProduct);
-}
+});
 
-export async function listAllSlugs(): Promise<string[]> {
+export const listAllSlugs = cache(async (): Promise<string[]> => {
   const rows = await db.select({ slug: productsTable.slug }).from(productsTable);
   return rows.map((r) => r.slug);
-}
+});

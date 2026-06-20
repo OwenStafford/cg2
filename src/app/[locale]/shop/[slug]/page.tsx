@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/Container";
@@ -6,7 +7,10 @@ import { AddToCartButton } from "@/components/AddToCartButton";
 import { getProduct, listAllSlugs } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import { pageMetadata, SITE_URL } from "@/lib/seo";
+import { BLUR_CREAM } from "@/lib/blur";
 import type { Locale } from "@/i18n/routing";
+
+export const revalidate = 3600;
 
 export async function generateStaticParams() {
   const slugs = await listAllSlugs();
@@ -67,11 +71,15 @@ export default async function ProductPage({
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="relative aspect-square overflow-hidden rounded-md bg-cream">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={product.imageUrl}
             alt={product.name[locale]}
-            className="absolute inset-0 h-full w-full object-cover"
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            priority
+            placeholder="blur"
+            blurDataURL={BLUR_CREAM}
+            className="object-cover"
           />
         </div>
 

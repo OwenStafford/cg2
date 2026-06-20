@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { Container } from "@/components/Container";
@@ -5,6 +6,8 @@ import { ProductCard } from "@/components/ProductCard";
 import { listFeatured } from "@/lib/products";
 import type { Locale } from "@/i18n/routing";
 import { ArrowRight } from "lucide-react";
+
+export const revalidate = 3600;
 
 export default async function HomePage({
   params,
@@ -47,11 +50,13 @@ export default async function HomePage({
             </div>
           </div>
           <div className="relative aspect-[4/5] lg:aspect-[3/4] overflow-hidden rounded-md">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1442550528053-c431ecb55509?w=1400&q=80"
               alt=""
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
+              className="object-cover"
             />
           </div>
         </Container>
@@ -85,11 +90,12 @@ export default async function HomePage({
       <section className="border-t border-border bg-cream/40">
         <Container className="grid grid-cols-1 lg:grid-cols-2 items-center gap-12 py-20">
           <div className="relative aspect-[4/3] overflow-hidden rounded-md order-2 lg:order-1">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1400&q=80"
               alt=""
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
             />
           </div>
           <div className="order-1 lg:order-2">
