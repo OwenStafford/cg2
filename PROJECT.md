@@ -138,6 +138,7 @@ New Supabase projects default to **confirmation ON**.
 - [ ] **Set up product pictures properly** — image hosting/optimization (Supabase Storage or Vercel/Next image pipeline), wire `image_url`.
 - [ ] **SSR / performance optimization** — maximize server rendering, caching, `next/image`, etc. Make it "snappy". Owner wants to optimize heavily.
 - [ ] **Mobile support** — responsive across breakpoints.
+- [ ] **SEO optimization** — metadata/titles/descriptions per page, Open Graph/Twitter cards, `sitemap.xml`, `robots.txt`, structured data (JSON-LD for products/org), canonical + `hreflang` for the EN/FR locales, semantic headings. Pairs with the SSR/perf work.
 - [x] ~~**Accounts & auth**~~ — ✅ done 2026-06-19 (email + password via Supabase). See "What's Been Done". *Still needs the Supabase dashboard config below to be exercised end-to-end.*
 - [ ] **Past orders & order-status page** — logged-in customers can view their order history + status (table/list). Data already captured in `orders` / `order_items`; needs to link orders to the customer account (via `customer_id` / email) and a UI to display them. **Now unblocked** (auth is in). Account page already has a placeholder slot for this.
 - [ ] **Resend (transactional email)** — set up [Resend](https://resend.com) to email customers about order confirmation/status, etc. Hook into the Stripe webhook (`checkout.session.completed`) for the order-confirmation email; later wire status-change emails. Needs a Resend API key + verified sending domain.
