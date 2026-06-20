@@ -148,8 +148,8 @@ New Supabase projects default to **confirmation ON**.
 
 *(no particular order unless noted)*
 
-- [ ] **Deploy to Vercel** — wants a low/no-cost demo link first (avoid spend for now). Hobby tier likely sufficient initially.
-- [ ] **Get all envs onto Vercel** — port the `.env.local` values into Vercel project env vars (per-environment). Remember: production needs a **separate** `STRIPE_WEBHOOK_SECRET` from a Dashboard webhook endpoint, not the CLI one.
+- [x] ~~**Deploy to Vercel**~~ — ✅ done 2026-06-20. Live demo at **`https://cg2-mu.vercel.app`** (test mode). Full flow verified on prod: browse → cart → embedded checkout (test card) → `checkout.session.completed` webhook → order saved → shows in account order history.
+- [x] ~~**Get all envs onto Vercel**~~ — ✅ done 2026-06-20. All env vars set in Vercel, including `NEXT_PUBLIC_SITE_URL` and a **production** `STRIPE_WEBHOOK_SECRET` from a Dashboard webhook destination (`/api/webhooks/stripe`). Supabase auth URLs point at the Vercel domain. (Service-role key not needed at runtime.)
 - [x] ~~**Custom Stripe checkout modal**~~ — ✅ done 2026-06-19 via Embedded Checkout (`ui_mode: 'embedded_page'`). See "What's Been Done".
 - [x] ~~**Import all products from the previous site**~~ — ✅ done 2026-06-19 (46 products from cafegourmet.ca; contact + custom-service pages imported & translated too). See "What's Been Done".
 - [x] ~~**Set up product pictures properly**~~ — ✅ done 2026-06-19 (downloaded from old site → public Supabase Storage `product-images` bucket → `next/image`). See "What's Been Done".
@@ -158,7 +158,8 @@ New Supabase projects default to **confirmation ON**.
   - ✅ `next/image` on LCP images (product detail + both home heroes) — responsive srcset, modern formats, `priority` above-fold. (`images.unsplash.com` re-added to `next.config` for the decorative heroes.)
   - ✅ ISR `revalidate = 3600` on home + product pages (DB-backed) → cached/static, regen hourly. Product also SSG via `generateStaticParams`.
   - ✅ **Shop category switching is now client-side instant** — `ShopBrowser` (client) receives all products + `initialCategory` and filters in-memory on tab click (no navigation/server round-trip), keeping the URL in sync via `history.replaceState`. Server still SSR-renders the correct subset per `?category` (SEO-correct: all=46/coffee=27/tea=15/gift=4). `shop/loading.tsx` shows an instant skeleton when *arriving* at the shop. Product images use a cream blur-up (`src/lib/blur.ts`). (Replaced the earlier `<Suspense>`-stream approach, which still had a per-click round-trip.)
-  - ⏳ **Remaining (needs prod build / deploy to measure):** Lighthouse/PageSpeed CWV audit, bundle analysis, font optimization. Shop stays dynamic (reads `?category`) but now feels instant via streaming. Home heroes are still Unsplash placeholders (swap for real photos eventually).
+  - ✅ **Measured on the live deploy (2026-06-20, Lighthouse mobile):** Performance **98**, Accessibility **96**, Best Practices **100**, SEO **100**. Perf/SEO work validated.
+  - ⏳ **Optional polish:** nudge Accessibility 96→100 (likely a contrast/label item). Home heroes are still Unsplash placeholders (swap for real photos eventually). Bundle analysis if ever needed.
 - [x] ~~**Mobile support**~~ — ✅ done 2026-06-20. Added `MobileMenu` (hamburger + dropdown) — the header nav was desktop-only (`hidden md:flex`) with no mobile fallback. Smaller logo + tighter gaps on mobile; cart row tightened (hides redundant line-total < `sm`). Other pages were already mobile-first (grid-cols-1 → lg). Also replaced the cart's `mounted` hydration gate (setState-in-effect) with `useSyncExternalStore` in `CartContents` + `CartIconWithBadge` — cleaner and lint-clean.
 - [x] ~~**SEO optimization**~~ — ✅ done 2026-06-20. Per-page metadata (title template, descriptions), OG/Twitter cards, canonical + `hreflang` (en/fr/x-default), `sitemap.xml` (all routes + products, localized), `robots.txt` (noindex account/cart/checkout), JSON-LD (Organization site-wide + Product per product). Helper: `src/lib/seo.ts`. **Set `NEXT_PUBLIC_SITE_URL` on deploy** (defaults to `https://cafegourmet.ca`). See "What's Been Done".
 - [x] ~~**Accounts & auth**~~ — ✅ done 2026-06-19 (email + password via Supabase). See "What's Been Done". *Still needs the Supabase dashboard config below to be exercised end-to-end.*
@@ -169,6 +170,22 @@ New Supabase projects default to **confirmation ON**.
 - [ ] **Admin dashboard** *(explicitly last)* — manage products/orders. (Natural home for the logging/health view too.)
 
 > _Dropped: "editable site settings in DB." Contact info lives in `messages/{en,fr}.json` (contact + customService namespaces) and is fine to edit by hand when it changes — no DB-backed settings needed._
+
+## Deployment & domain transfer
+
+**Currently deployed on Vercel** (project `cg2`, GitHub `OwenStafford/cg2`, auto-deploys `main`).
+- **Demo domain:** `https://cg2-mu.vercel.app` (also `cg2-git-main-owenstaffords-projects.vercel.app`). This is the test/demo URL — every external integration below currently points here.
+
+### Moving to the real domain (e.g. `cafegourmet.ca`)
+When the real domain is ready, point everything at it. **Every place the demo URL is wired must be updated** — miss one and that feature silently breaks on the new domain:
+
+1. **Vercel → Settings → Domains** — add `cafegourmet.ca` (and `www`), set DNS records Vercel gives you, make it the production domain.
+2. **Vercel env var `NEXT_PUBLIC_SITE_URL`** → `https://cafegourmet.ca` (drives canonical/OG/sitemap/robots). _Then redeploy_ — env changes only apply on a new build.
+3. **Stripe webhook** (Dashboard → Developers → Webhooks) — add/repoint an endpoint to `https://cafegourmet.ca/api/webhooks/stripe` (event `checkout.session.completed`); put its `whsec_…` in the Vercel `STRIPE_WEBHOOK_SECRET` env var. Redeploy. _Otherwise paid orders won't save._
+4. **Supabase → Authentication → URL Configuration** — set **Site URL** to `https://cafegourmet.ca`; add `https://cafegourmet.ca/auth/callback` to **Redirect URLs**. _Otherwise sign-up/login/password-reset email links break._
+5. Sanity-check after cutover: homepage + shop load, a test checkout saves an order, sign-up/login works, `cafegourmet.ca/sitemap.xml` + `/robots.txt` show the new domain.
+
+> The SEO layer already **defaults** `SITE_URL` to `https://cafegourmet.ca` (so if you simply *remove* `NEXT_PUBLIC_SITE_URL`, canonical/OG/sitemap fall back to the real domain). Product images stay on Supabase Storage regardless — no image-host change needed.
 
 ### Go-live checklist (for when leaving test mode)
 - **Production domain: `cafegourmet.ca`** (confirmed — the business will have access to it). Use it for `NEXT_PUBLIC_SITE_URL`, the Stripe prod webhook (`/api/webhooks/stripe`), and Supabase Auth Site URL + redirect (`/auth/callback`). The SEO setup already defaults canonical/sitemap/robots/OG to this domain.
