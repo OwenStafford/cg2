@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCartStore } from "@/lib/cart";
+import { CheckoutModal } from "./CheckoutModal";
 
 export function CheckoutButton() {
   const items = useCartStore((s) => s.items);
@@ -11,6 +12,7 @@ export function CheckoutButton() {
   const locale = useLocale();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
 
   const handleClick = async () => {
     if (items.length === 0) return;
@@ -29,11 +31,12 @@ export function CheckoutButton() {
         }),
       });
       if (!res.ok) throw new Error("checkout failed");
-      const data = (await res.json()) as { url?: string };
-      if (!data.url) throw new Error("no url");
-      window.location.href = data.url;
+      const data = (await res.json()) as { clientSecret?: string };
+      if (!data.clientSecret) throw new Error("no client secret");
+      setClientSecret(data.clientSecret);
     } catch {
       setError(tCheckout("failed"));
+    } finally {
       setLoading(false);
     }
   };
@@ -49,6 +52,13 @@ export function CheckoutButton() {
         {loading ? tCheckout("preparing") : tCart("checkout")}
       </button>
       {error && <p className="mt-2 text-xs text-accent">{error}</p>}
+      {clientSecret && (
+        <CheckoutModal
+          clientSecret={clientSecret}
+          onClose={() => setClientSecret(null)}
+          closeLabel={tCheckout("close")}
+        />
+      )}
     </>
   );
 }

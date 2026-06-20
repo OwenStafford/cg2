@@ -56,6 +56,15 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 - `CheckoutButton`, `CartClearer` components.
 - **Verified end-to-end** 2026-06-19: test purchase → webhook → order row in DB. ✅
 
+### On-site embedded checkout modal *(2026-06-19)* — **DONE**
+- Customers now check out **without leaving the site** — Stripe's Embedded Checkout renders in a modal.
+- `src/app/api/checkout/route.ts` — switched to `ui_mode: "embedded_page"`, returns `client_secret` (+ `return_url`) instead of a hosted `url`.
+- `src/lib/stripe-client.ts` — client-side `loadStripe` singleton (uses `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`).
+- `src/components/CheckoutModal.tsx` — overlay hosting `<EmbeddedCheckoutProvider>` + `<EmbeddedCheckout>` (Esc to close, scroll lock, click-outside).
+- `src/components/CheckoutButton.tsx` — fetches `client_secret` then opens the modal (errors like out-of-stock surface before the modal opens).
+- Deps added: `@stripe/stripe-js`, `@stripe/react-stripe-js`.
+- Webhook/order pipeline unchanged; success page still reached via `return_url`.
+
 ---
 
 ## Environment Variables
@@ -67,7 +76,7 @@ Local dev lives in `.env.local` (gitignored). Currently set:
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase anon/publishable key | |
 | `DATABASE_URL` | Postgres connection (Supabase pooler) | used by Drizzle |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable (`pk_test_…`) | **not used yet** — needed once we build the custom in-site modal |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable (`pk_test_…`) | used client-side by the embedded checkout modal |
 | `STRIPE_SECRET_KEY` | Stripe secret (`sk_test_…`) | test mode |
 | `STRIPE_WEBHOOK_SECRET` | from `stripe listen` (local) | **local-only**; production uses a separate Dashboard endpoint secret |
 
@@ -96,8 +105,7 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 
 - [ ] **Deploy to Vercel** — wants a low/no-cost demo link first (avoid spend for now). Hobby tier likely sufficient initially.
 - [ ] **Get all envs onto Vercel** — port the `.env.local` values into Vercel project env vars (per-environment). Remember: production needs a **separate** `STRIPE_WEBHOOK_SECRET` from a Dashboard webhook endpoint, not the CLI one.
-- [ ] **Custom Stripe checkout modal** — keep customers on-site (card, CVC, expiry, address, name, email) instead of redirecting.
-  - Recommended approach: **Embedded Checkout** (`ui_mode: 'embedded'`) for low effort + minimal PCI scope, or **Payment Element** (`ui_mode: 'custom'`) for full design control. **Never** build raw card `<input>`s (PCI burden). This is where `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` gets used.
+- [x] ~~**Custom Stripe checkout modal**~~ — ✅ done 2026-06-19 via Embedded Checkout (`ui_mode: 'embedded_page'`). See "What's Been Done".
 - [ ] **Import all products from the previous site** — migrate product catalog into the `products` table.
 - [ ] **Set up product pictures properly** — image hosting/optimization (Supabase Storage or Vercel/Next image pipeline), wire `image_url`.
 - [ ] **SSR / performance optimization** — maximize server rendering, caching, `next/image`, etc. Make it "snappy". Owner wants to optimize heavily.
@@ -116,3 +124,4 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 - Money is stored in **cents** (integers) everywhere.
 - Product text fields are **bilingual** (`*_en` / `*_fr`) — keep both in sync when importing/editing.
 - Order line items **snapshot** name/price at purchase, so later product edits don't rewrite history.
+- **Stripe SDK (v22) pins a 2026 API version** — `ui_mode` values are `embedded_page` / `hosted_page` (NOT the older `embedded` / `hosted`). Watch for renamed enums vs. older Stripe docs/examples.

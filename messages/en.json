@@ -66,7 +66,8 @@
     "orderRef": "Order reference",
     "continueShopping": "Continue shopping",
     "preparing": "Preparing checkout…",
-    "failed": "Something went wrong. Please try again."
+    "failed": "Something went wrong. Please try again.",
+    "close": "Close"
   },
   "about": {
     "eyebrow": "Our story",

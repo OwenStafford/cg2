@@ -66,7 +66,8 @@
     "orderRef": "Référence de commande",
     "continueShopping": "Continuer vos achats",
     "preparing": "Préparation du paiement…",
-    "failed": "Une erreur s'est produite. Veuillez réessayer."
+    "failed": "Une erreur s'est produite. Veuillez réessayer.",
+    "close": "Fermer"
   },
   "about": {
     "eyebrow": "Notre histoire",

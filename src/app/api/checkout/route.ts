@@ -98,10 +98,10 @@ export async function POST(req: NextRequest) {
   const origin = req.headers.get("origin") ?? req.nextUrl.origin;
 
   const session = await stripe.checkout.sessions.create({
+    ui_mode: "embedded_page",
     mode: "payment",
     line_items: lineItems,
-    success_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/${locale}/cart`,
+    return_url: `${origin}/${locale}/checkout/success?session_id={CHECKOUT_SESSION_ID}`,
     shipping_address_collection: {
       allowed_countries: ["CA", "US"],
     },
@@ -112,5 +112,5 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  return NextResponse.json({ url: session.url });
+  return NextResponse.json({ clientSecret: session.client_secret });
 }
