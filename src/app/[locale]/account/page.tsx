@@ -6,6 +6,11 @@ import { getOrdersForEmail } from "@/lib/orders";
 import { formatPrice, formatDate } from "@/lib/format";
 import { signOut } from "./actions";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const STATUS_KEY = {
   pending: "statusPending",

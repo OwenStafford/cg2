@@ -3,6 +3,9 @@
     "title": "Café Gourmet — Café de spécialité de Montréal · Depuis 1977",
     "description": "Une torréfaction familiale montréalaise depuis 1977. Arabica d'origine unique, mélanges signature et service personnalisé de la famille Stafford."
   },
+  "seo": {
+    "shopDescription": "Découvrez toute notre gamme de cafés d'origine unique, de mélanges signature, de thés en vrac et de paniers-cadeaux — torréfiés et sélectionnés à Montréal depuis 1977."
+  },
   "nav": {
     "shop": "Boutique",
     "signatureBlends": "Mélanges signature",

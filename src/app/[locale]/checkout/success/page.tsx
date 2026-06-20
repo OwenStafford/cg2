@@ -6,8 +6,13 @@ import { Link } from "@/i18n/navigation";
 import { stripe } from "@/lib/stripe";
 import { formatPrice } from "@/lib/format";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function CheckoutSuccessPage({
   params,

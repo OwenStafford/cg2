@@ -1,14 +1,33 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/Container";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { getProduct, listAllSlugs } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
+import { pageMetadata, SITE_URL } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
 
 export async function generateStaticParams() {
   const slugs = await listAllSlugs();
   return slugs.map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: Locale; slug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug } = await params;
+  const product = await getProduct(slug);
+  if (!product) return {};
+  return pageMetadata({
+    locale,
+    path: `/shop/${slug}`,
+    title: product.name[locale],
+    description: product.description[locale],
+    images: [product.imageUrl],
+  });
 }
 
 export default async function ProductPage({
@@ -22,10 +41,31 @@ export default async function ProductPage({
   if (!product) notFound();
 
   const t = await getTranslations("product");
-  const tShop = await getTranslations("shop");
+
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name[locale],
+    image: product.imageUrl,
+    description: product.description[locale],
+    brand: { "@type": "Brand", name: "Café Gourmet" },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "CAD",
+      price: (product.priceCents / 100).toFixed(2),
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      url: `${SITE_URL}/${locale}/shop/${product.slug}`,
+    },
+  };
 
   return (
     <Container className="py-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+      />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="relative aspect-square overflow-hidden rounded-md bg-cream">
           {/* eslint-disable-next-line @next/next/no-img-element */}

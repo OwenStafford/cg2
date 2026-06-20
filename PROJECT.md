@@ -88,6 +88,11 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 - **About page** was already accurate (Don & Rita Stafford 1977, Greene Ave, Marché de l'Ouest 1981, daughters Lynn & Donna, charities, Dorval address) — left as-is.
 - **Product images self-hosted in Supabase Storage** *(2026-06-19)* — all 44 unique images were downloaded from the old site and uploaded to a **public `product-images` bucket**; `imageUrl`s now point at `…supabase.co/storage/v1/object/public/product-images/…`. `next.config.ts` allows that host (cafegourmet.ca removed). Served/optimized through `next/image`. Upload used the `SUPABASE_SERVICE_ROLE_KEY` (secret key) via a one-off script.
 
+### Order history, mobile & SEO *(2026-06-20)* — **DONE**
+- **Past orders** on `/account` (matched by email) — date, ref, status badge, line items, total. `src/lib/orders.ts`, `formatDate`, `orders` i18n namespace.
+- **Mobile**: `MobileMenu` (hamburger) — header nav was desktop-only. Cart-hydration gate moved to `useSyncExternalStore`.
+- **SEO**: `src/lib/seo.ts` helper; per-page metadata + OG/Twitter, canonical + `hreflang`, `app/sitemap.ts`, `app/robots.ts`, JSON-LD (Organization + Product). Private pages `noindex`.
+
 ---
 
 ## Environment Variables
@@ -100,6 +105,7 @@ Local dev lives in `.env.local` (gitignored). Currently set:
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase anon/publishable key | |
 | `DATABASE_URL` | Postgres connection (Supabase pooler) | used by Drizzle |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase secret key (`sb_secret_…`) | server-only; used for Storage admin (image uploads). **Never expose client-side.** |
+| `NEXT_PUBLIC_SITE_URL` | Canonical site origin for SEO (canonical/OG/sitemap/robots) | optional; defaults to `https://cafegourmet.ca`. Set to the real deployed origin in prod. |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable (`pk_test_…`) | used client-side by the embedded checkout modal |
 | `STRIPE_SECRET_KEY` | Stripe secret (`sk_test_…`) | test mode |
 | `STRIPE_WEBHOOK_SECRET` | from `stripe listen` (local) | **local-only**; production uses a separate Dashboard endpoint secret |
@@ -146,9 +152,9 @@ New Supabase projects default to **confirmation ON**.
 - [x] ~~**Custom Stripe checkout modal**~~ — ✅ done 2026-06-19 via Embedded Checkout (`ui_mode: 'embedded_page'`). See "What's Been Done".
 - [x] ~~**Import all products from the previous site**~~ — ✅ done 2026-06-19 (46 products from cafegourmet.ca; contact + custom-service pages imported & translated too). See "What's Been Done".
 - [x] ~~**Set up product pictures properly**~~ — ✅ done 2026-06-19 (downloaded from old site → public Supabase Storage `product-images` bucket → `next/image`). See "What's Been Done".
-- [ ] **SSR / performance optimization** — maximize server rendering, caching, `next/image`, etc. Make it "snappy". Owner wants to optimize heavily.
+- [ ] **SSR / performance optimization (for ranking)** — owner wants a **high search rank**, and Core Web Vitals (LCP/CLS/INP) are a Google ranking factor, so treat perf as part of SEO. Scope: maximize static/server rendering + caching (shop, product, content pages should be static/ISR, not force-dynamic where avoidable), `next/image` everywhere (replace remaining plain `<img>` on home/product-detail), font/CSS optimization, lazy-load below-the-fold, audit with Lighthouse/PageSpeed + `next build` bundle analysis, aim for green CWV. Pairs with the SEO work already done.
 - [x] ~~**Mobile support**~~ — ✅ done 2026-06-20. Added `MobileMenu` (hamburger + dropdown) — the header nav was desktop-only (`hidden md:flex`) with no mobile fallback. Smaller logo + tighter gaps on mobile; cart row tightened (hides redundant line-total < `sm`). Other pages were already mobile-first (grid-cols-1 → lg). Also replaced the cart's `mounted` hydration gate (setState-in-effect) with `useSyncExternalStore` in `CartContents` + `CartIconWithBadge` — cleaner and lint-clean.
-- [ ] **SEO optimization** — metadata/titles/descriptions per page, Open Graph/Twitter cards, `sitemap.xml`, `robots.txt`, structured data (JSON-LD for products/org), canonical + `hreflang` for the EN/FR locales, semantic headings. Pairs with the SSR/perf work.
+- [x] ~~**SEO optimization**~~ — ✅ done 2026-06-20. Per-page metadata (title template, descriptions), OG/Twitter cards, canonical + `hreflang` (en/fr/x-default), `sitemap.xml` (all routes + products, localized), `robots.txt` (noindex account/cart/checkout), JSON-LD (Organization site-wide + Product per product). Helper: `src/lib/seo.ts`. **Set `NEXT_PUBLIC_SITE_URL` on deploy** (defaults to `https://cafegourmet.ca`). See "What's Been Done".
 - [x] ~~**Accounts & auth**~~ — ✅ done 2026-06-19 (email + password via Supabase). See "What's Been Done". *Still needs the Supabase dashboard config below to be exercised end-to-end.*
 - [x] ~~**Past orders & order-status page**~~ — ✅ done 2026-06-19. Logged-in customers see their order history (date, ref, status badge, line items, total) on `/account`, matched by email. `src/lib/orders.ts` (`getOrdersForEmail`), `formatDate` helper, `orders` i18n namespace. Orders link by email for now (no `customer_id` backfill yet).
 - [ ] **Resend (transactional email)** — set up [Resend](https://resend.com) to email customers about order confirmation/status, etc. Hook into the Stripe webhook (`checkout.session.completed`) for the order-confirmation email; later wire status-change emails. Needs a Resend API key + verified sending domain.
@@ -158,6 +164,7 @@ New Supabase projects default to **confirmation ON**.
 - [ ] **Admin dashboard** *(explicitly last)* — manage products/orders + edit site settings (above). (Natural home for the logging/health view too.)
 
 ### Go-live checklist (for when leaving test mode)
+- **Production domain: `cafegourmet.ca`** (confirmed — the business will have access to it). Use it for `NEXT_PUBLIC_SITE_URL`, the Stripe prod webhook (`/api/webhooks/stripe`), and Supabase Auth Site URL + redirect (`/auth/callback`). The SEO setup already defaults canonical/sitemap/robots/OG to this domain.
 - [ ] Activate Stripe account (business info, bank, tax details).
 - [ ] Swap `sk_test_…`/`pk_test_…` → `sk_live_…`/`pk_live_…`.
 - [ ] Create production webhook endpoint in Stripe Dashboard → put its `whsec_…` in Vercel env vars.

@@ -3,6 +3,9 @@
     "title": "Café Gourmet — Specialty Coffee from Montréal · Since 1977",
     "description": "A Montréal family roastery since 1977. Single-origin Arabica, signature blends, and custom service from the Stafford family."
   },
+  "seo": {
+    "shopDescription": "Browse our full range of single-origin coffees, signature blends, loose-leaf teas, and gift baskets — roasted and curated in Montréal since 1977."
+  },
   "nav": {
     "shop": "Shop",
     "signatureBlends": "Signature Blends",

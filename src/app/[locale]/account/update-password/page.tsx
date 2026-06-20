@@ -2,6 +2,11 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { Container } from "@/components/Container";
 import { UpdatePasswordForm } from "@/components/UpdatePasswordForm";
 import type { Locale } from "@/i18n/routing";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export const dynamic = "force-dynamic";
 
