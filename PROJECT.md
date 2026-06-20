@@ -92,6 +92,7 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 - **Past orders** on `/account` (matched by email) — date, ref, status badge, line items, total. `src/lib/orders.ts`, `formatDate`, `orders` i18n namespace.
 - **Mobile**: `MobileMenu` (hamburger) — header nav was desktop-only. Cart-hydration gate moved to `useSyncExternalStore`.
 - **SEO**: `src/lib/seo.ts` helper; per-page metadata + OG/Twitter, canonical + `hreflang`, `app/sitemap.ts`, `app/robots.ts`, JSON-LD (Organization + Product). Private pages `noindex`.
+- **Social images + favicon**: branded **OG images** via `next/og` `ImageResponse` — default card (`app/[locale]/opengraph-image.tsx`, localized) + product card with photo/name/price (`app/[locale]/shop/[slug]/opengraph-image.tsx`). Branded **favicon** `app/icon.svg` (coffee-bean monogram; default Create-Next-App `favicon.ico` removed).
 
 ---
 

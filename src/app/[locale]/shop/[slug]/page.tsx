@@ -26,7 +26,6 @@ export async function generateMetadata({
     path: `/shop/${slug}`,
     title: product.name[locale],
     description: product.description[locale],
-    images: [product.imageUrl],
   });
 }
 
