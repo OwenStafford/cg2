@@ -118,7 +118,37 @@
   },
   "contact": {
     "title": "Contact",
-    "comingSoon": "Contact form coming soon."
+    "intro": "Questions about an order, a custom blend, or a fundraiser? We'd love to hear from you. The Stafford family has been roasting in Montréal since 1977, and a real person will get back to you.",
+    "visitTitle": "Visit the showroom",
+    "orgName": "Le Centre Café Gourmet",
+    "addressLine1": "1564 Ch. Herron, Suite 201",
+    "addressLine2": "Dorval, QC H9S 1B7",
+    "reachUsTitle": "Reach us",
+    "phoneLabel": "Phone",
+    "phone": "514.631.1131",
+    "faxLabel": "Fax",
+    "fax": "866.234.1154",
+    "emailLabel": "Email",
+    "email": "info@cafegourmet.ca"
+  },
+  "customService": {
+    "title": "Custom Service",
+    "intro": "Since 1977 we've done more than sell coffee off a shelf. Tell us what you're after and we'll build it with you — a blend, a hard-to-find tea, a gift, or a fundraiser for your organization.",
+    "blendTitle": "Custom Coffee Blends",
+    "blendBody": "Work with us to build a blend that's truly yours. We'll guide you through origins, roast levels, and proportions until the cup is exactly right.",
+    "teaTitle": "Special-Order Tea",
+    "teaBody": "Looking for a loose tea you don't see in our shop? Tell us what you'd like and we'll source it for you.",
+    "basketsTitle": "Gift Baskets",
+    "basketsBody": "Themed baskets built to suit the occasion. A few favourites to start from:",
+    "basketThemes": "Oh Canada · Rise and Shine · Chocolate Splurge · Viva Italia · Tea-for-2",
+    "fundraisingTitle": "Beans for Bucks — Fundraising",
+    "fundraisingBody": "Raise money for your school, team, or cause by reselling custom-branded coffee and hot chocolate — 200 g bags of coffee or 454 g of Dutch hot chocolate, in reusable bags branded for your organization.",
+    "ctaTitle": "Let's build something",
+    "ctaBody": "Give us a call or send a note and we'll get started.",
+    "phoneLabel": "Phone",
+    "phone": "514.631.1131",
+    "emailLabel": "Email",
+    "email": "info@cafegourmet.ca"
   },
   "footer": {
     "tagline": "Specialty coffee importers · Montréal · Since 1977",

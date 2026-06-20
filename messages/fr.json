@@ -118,7 +118,37 @@
   },
   "contact": {
     "title": "Contact",
-    "comingSoon": "Formulaire de contact à venir."
+    "intro": "Des questions sur une commande, un mélange personnalisé ou une collecte de fonds ? Ça nous ferait plaisir d'avoir de vos nouvelles. La famille Stafford torréfie à Montréal depuis 1977, et une vraie personne vous répondra.",
+    "visitTitle": "Visitez la salle de montre",
+    "orgName": "Le Centre Café Gourmet",
+    "addressLine1": "1564 Ch. Herron, bureau 201",
+    "addressLine2": "Dorval, QC H9S 1B7",
+    "reachUsTitle": "Joignez-nous",
+    "phoneLabel": "Téléphone",
+    "phone": "514.631.1131",
+    "faxLabel": "Télécopieur",
+    "fax": "866.234.1154",
+    "emailLabel": "Courriel",
+    "email": "info@cafegourmet.ca"
+  },
+  "customService": {
+    "title": "Service personnalisé",
+    "intro": "Depuis 1977, nous faisons bien plus que vendre du café sur une tablette. Dites-nous ce que vous cherchez et nous le créerons avec vous — un mélange, un thé difficile à trouver, un cadeau ou une collecte de fonds pour votre organisation.",
+    "blendTitle": "Mélanges de café personnalisés",
+    "blendBody": "Créez avec nous un mélange qui vous ressemble vraiment. Nous vous guidons à travers les origines, les niveaux de torréfaction et les proportions jusqu'à ce que la tasse soit parfaite.",
+    "teaTitle": "Thé sur commande",
+    "teaBody": "Vous cherchez un thé en vrac qui ne figure pas dans notre boutique ? Dites-nous ce que vous voulez et nous nous le procurerons.",
+    "basketsTitle": "Paniers-cadeaux",
+    "basketsBody": "Des paniers thématiques conçus pour l'occasion. Quelques favoris pour commencer :",
+    "basketThemes": "Oh Canada · Rise and Shine · Chocolate Splurge · Viva Italia · Tea-for-2",
+    "fundraisingTitle": "Beans for Bucks — Collecte de fonds",
+    "fundraisingBody": "Amassez des fonds pour votre école, votre équipe ou votre cause en revendant du café et du chocolat chaud à votre image — des sacs de 200 g de café ou 454 g de chocolat chaud hollandais, en sacs réutilisables aux couleurs de votre organisation.",
+    "ctaTitle": "Créons quelque chose",
+    "ctaBody": "Appelez-nous ou écrivez-nous et nous commencerons.",
+    "phoneLabel": "Téléphone",
+    "phone": "514.631.1131",
+    "emailLabel": "Courriel",
+    "email": "info@cafegourmet.ca"
   },
   "footer": {
     "tagline": "Importateurs de café de spécialité · Montréal · Depuis 1977",

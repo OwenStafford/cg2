@@ -30,7 +30,8 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 ### Pages / routes (`src/app/[locale]/`)
 - `page.tsx` — home
 - `about/` — About Us (with `FoundersPhoto` component) *(commits: `about us`)*
-- `contact/`
+- `contact/` — contact details (real address/phone/fax/email)
+- `customized/` — Custom Service page (blends, tea, baskets, fundraising)
 - `shop/` — product listing
 - `shop/[slug]/` — product detail
 - `cart/` — cart page
@@ -79,6 +80,14 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 - i18n: new `auth` namespace (EN/FR).
 - **⚠️ Requires Supabase dashboard config before the email flows work — see "Supabase auth setup" below.**
 
+### Catalog & content import from the old site *(2026-06-19)* — **DONE**
+- Imported the real catalog from **cafegourmet.ca** (WooCommerce) into `scripts/seed-data.ts` and seeded the DB: **46 products** — 27 coffee (18 single-origin/specialty + 9 signature blends), 15 teas, 4 gift baskets. Old fictional placeholder products were pruned.
+- Real names, prices, and categories (old `signature-blend` → `coffee`, `baskets` → `gift`); descriptions/origins/tasting-notes were **rewritten + translated to FR** (improved, not verbatim — the originals were one-liners like "mild and sweet").
+- **Contact page** (`/contact`) rebuilt with real info (Le Centre Café Gourmet, 1564 Ch. Herron Suite 201 Dorval; 514.631.1131; fax 866.234.1154; info@cafegourmet.ca), bilingual.
+- **Custom Service page** (`/customized`, new) — custom blends, special-order tea, gift baskets (themes), Beans for Bucks fundraising; bilingual. Linked in Header + Footer (`nav.customService`).
+- **About page** was already accurate (Don & Rita Stafford 1977, Greene Ave, Marché de l'Ouest 1981, daughters Lynn & Donna, charities, Dorval address) — left as-is.
+- **Product images self-hosted in Supabase Storage** *(2026-06-19)* — all 44 unique images were downloaded from the old site and uploaded to a **public `product-images` bucket**; `imageUrl`s now point at `…supabase.co/storage/v1/object/public/product-images/…`. `next.config.ts` allows that host (cafegourmet.ca removed). Served/optimized through `next/image`. Upload used the `SUPABASE_SERVICE_ROLE_KEY` (secret key) via a one-off script.
+
 ---
 
 ## Environment Variables
@@ -90,6 +99,7 @@ Local dev lives in `.env.local` (gitignored). Currently set:
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase anon/publishable key | |
 | `DATABASE_URL` | Postgres connection (Supabase pooler) | used by Drizzle |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase secret key (`sb_secret_…`) | server-only; used for Storage admin (image uploads). **Never expose client-side.** |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable (`pk_test_…`) | used client-side by the embedded checkout modal |
 | `STRIPE_SECRET_KEY` | Stripe secret (`sk_test_…`) | test mode |
 | `STRIPE_WEBHOOK_SECRET` | from `stripe listen` (local) | **local-only**; production uses a separate Dashboard endpoint secret |
@@ -134,8 +144,8 @@ New Supabase projects default to **confirmation ON**.
 - [ ] **Deploy to Vercel** — wants a low/no-cost demo link first (avoid spend for now). Hobby tier likely sufficient initially.
 - [ ] **Get all envs onto Vercel** — port the `.env.local` values into Vercel project env vars (per-environment). Remember: production needs a **separate** `STRIPE_WEBHOOK_SECRET` from a Dashboard webhook endpoint, not the CLI one.
 - [x] ~~**Custom Stripe checkout modal**~~ — ✅ done 2026-06-19 via Embedded Checkout (`ui_mode: 'embedded_page'`). See "What's Been Done".
-- [ ] **Import all products from the previous site** — migrate product catalog into the `products` table.
-- [ ] **Set up product pictures properly** — image hosting/optimization (Supabase Storage or Vercel/Next image pipeline), wire `image_url`.
+- [x] ~~**Import all products from the previous site**~~ — ✅ done 2026-06-19 (46 products from cafegourmet.ca; contact + custom-service pages imported & translated too). See "What's Been Done".
+- [x] ~~**Set up product pictures properly**~~ — ✅ done 2026-06-19 (downloaded from old site → public Supabase Storage `product-images` bucket → `next/image`). See "What's Been Done".
 - [ ] **SSR / performance optimization** — maximize server rendering, caching, `next/image`, etc. Make it "snappy". Owner wants to optimize heavily.
 - [ ] **Mobile support** — responsive across breakpoints.
 - [ ] **SEO optimization** — metadata/titles/descriptions per page, Open Graph/Twitter cards, `sitemap.xml`, `robots.txt`, structured data (JSON-LD for products/org), canonical + `hreflang` for the EN/FR locales, semantic headings. Pairs with the SSR/perf work.
@@ -144,7 +154,8 @@ New Supabase projects default to **confirmation ON**.
 - [ ] **Resend (transactional email)** — set up [Resend](https://resend.com) to email customers about order confirmation/status, etc. Hook into the Stripe webhook (`checkout.session.completed`) for the order-confirmation email; later wire status-change emails. Needs a Resend API key + verified sending domain.
   - **Resend should also take over all Supabase/auth emails** (sign-up confirmation, password reset, magic link, email-change) — point Supabase Auth's **custom SMTP** at Resend so every transactional email goes through Resend (one sender domain, branded templates) instead of Supabase's default mailer. Config in Supabase dashboard → Authentication → SMTP settings.
 - [ ] **Logging / health dashboard** — observability so failures are debuggable (webhook errors, failed payments, server errors). Prefer **non-Google** options (e.g. Sentry for errors, Vercel's built-in logs/observability, Supabase logs, Axiom/Better Stack/Logtail) — only fall back to GCP if unavoidable. Could surface a health/logs view on the admin page. Owner's priority: "make sure I can debug if something goes wrong."
-- [ ] **Admin dashboard** *(explicitly last)* — manage products/orders. (Natural home for the logging/health view above.)
+- [ ] **Editable site settings in DB** — store contact info / business details (address, phone, fax, email, hours, social links) in a `site_settings` table instead of hardcoded i18n strings, so they're editable from the admin console if the business relocates or changes numbers. Currently these live in `messages/{en,fr}.json` (contact + customService namespaces) — migrate them to the DB and have the contact/custom-service pages read from there. Bilingual values where relevant.
+- [ ] **Admin dashboard** *(explicitly last)* — manage products/orders + edit site settings (above). (Natural home for the logging/health view too.)
 
 ### Go-live checklist (for when leaving test mode)
 - [ ] Activate Stripe account (business info, bank, tax details).

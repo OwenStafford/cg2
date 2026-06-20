@@ -40,6 +40,12 @@ export async function Header() {
           >
             {t("gifts")}
           </Link>
+          <Link
+            href="/customized"
+            className="hover:text-coffee transition-colors"
+          >
+            {t("customService")}
+          </Link>
           <Link href="/about" className="hover:text-coffee transition-colors">
             {t("about")}
           </Link>

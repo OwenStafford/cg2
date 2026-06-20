@@ -48,6 +48,11 @@ export async function Footer() {
           </h3>
           <ul className="mt-3 space-y-2 text-sm">
             <li>
+              <Link href="/customized" className="hover:text-coffee">
+                {nav("customService")}
+              </Link>
+            </li>
+            <li>
               <Link href="/about" className="hover:text-coffee">
                 {nav("about")}
               </Link>
