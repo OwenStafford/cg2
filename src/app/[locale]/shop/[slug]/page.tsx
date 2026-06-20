@@ -7,7 +7,7 @@ import { AddToCartButton } from "@/components/AddToCartButton";
 import { getProduct, listAllSlugs } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import { pageMetadata, SITE_URL } from "@/lib/seo";
-import { BLUR_CREAM } from "@/lib/blur";
+import { blurFor } from "@/lib/blur";
 import type { Locale } from "@/i18n/routing";
 
 export const revalidate = 3600;
@@ -78,7 +78,7 @@ export default async function ProductPage({
             sizes="(min-width: 1024px) 50vw, 100vw"
             priority
             placeholder="blur"
-            blurDataURL={BLUR_CREAM}
+            blurDataURL={blurFor(product.imageUrl)}
             className="object-cover"
           />
         </div>
