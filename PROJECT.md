@@ -110,6 +110,8 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 - [ ] **Set up product pictures properly** — image hosting/optimization (Supabase Storage or Vercel/Next image pipeline), wire `image_url`.
 - [ ] **SSR / performance optimization** — maximize server rendering, caching, `next/image`, etc. Make it "snappy". Owner wants to optimize heavily.
 - [ ] **Mobile support** — responsive across breakpoints.
+- [ ] **Accounts & auth** — customer sign-up / login. Supabase Auth is already wired (`@supabase/ssr`, helpers in `src/lib/supabase/`). The `customers` table + `orders.customer_id` FK already exist to hang accounts off of.
+- [ ] **Past orders & order-status page** — logged-in customers can view their order history + status (table/list). Data already captured in `orders` / `order_items`; needs to link orders to the customer account (via `customer_id` / email) and a UI to display them. Depends on **Accounts & auth**.
 - [ ] **Admin dashboard** *(explicitly last)* — manage products/orders.
 
 ### Go-live checklist (for when leaving test mode)
