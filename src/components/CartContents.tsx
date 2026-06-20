@@ -94,7 +94,7 @@ function Row({
   const lineTotal = item.priceCents * item.quantity;
 
   return (
-    <li className="flex items-center gap-5 py-5">
+    <li className="flex items-center gap-3 py-5 sm:gap-5">
       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded bg-cream">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -135,7 +135,7 @@ function Row({
           <Plus className="h-3.5 w-3.5" />
         </button>
       </div>
-      <div className="w-20 text-right text-sm font-medium text-coffee-dark">
+      <div className="hidden w-20 text-right text-sm font-medium text-coffee-dark sm:block">
         {formatPrice(lineTotal, locale)}
       </div>
       <button

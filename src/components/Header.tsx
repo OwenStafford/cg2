@@ -3,6 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { Container } from "./Container";
 import { LocaleSwitcher } from "./LocaleSwitcher";
 import { CartIconWithBadge } from "./CartIconWithBadge";
+import { MobileMenu } from "./MobileMenu";
 import { User } from "lucide-react";
 
 export async function Header() {
@@ -10,10 +11,10 @@ export async function Header() {
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur">
-      <Container className="flex items-center justify-between gap-8 py-4">
+      <Container className="flex items-center justify-between gap-6 py-4">
         <Link
           href="/"
-          className="font-serif text-2xl tracking-tight text-coffee-dark"
+          className="font-serif text-xl sm:text-2xl tracking-tight text-coffee-dark"
         >
           Café Gourmet
         </Link>
@@ -57,7 +58,7 @@ export async function Header() {
           </Link>
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 sm:gap-4">
           <LocaleSwitcher />
           <Link
             href="/account"
@@ -67,6 +68,7 @@ export async function Header() {
             <User className="h-5 w-5" />
           </Link>
           <CartIconWithBadge ariaLabel={t("cart")} />
+          <MobileMenu />
         </div>
       </Container>
     </header>
