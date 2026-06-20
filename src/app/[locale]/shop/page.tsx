@@ -5,7 +5,10 @@ import { ShopBrowser } from "@/components/ShopBrowser";
 import { listProducts } from "@/lib/products";
 import { pageMetadata } from "@/lib/seo";
 import type { Locale } from "@/i18n/routing";
-import type { ProductCategory } from "@/lib/db/enums";
+
+// Dynamic so `ShopBrowser`'s useSearchParams renders the correct category
+// server-side (keeps the grid in the SSR HTML for SEO), without a Suspense bail.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -25,30 +28,19 @@ export async function generateMetadata({
 
 export default async function ShopPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ locale: Locale }>;
-  searchParams: Promise<{ category?: string }>;
 }) {
   const { locale } = await params;
-  const { category } = await searchParams;
   setRequestLocale(locale);
   const t = await getTranslations("shop");
 
   const products = await listProducts();
-  const initialCategory: "all" | ProductCategory =
-    category === "coffee" || category === "tea" || category === "gift"
-      ? category
-      : "all";
 
   return (
     <Container className="py-14">
       <h1 className="font-serif text-4xl text-coffee-dark">{t("title")}</h1>
-      <ShopBrowser
-        products={products}
-        locale={locale}
-        initialCategory={initialCategory}
-      />
+      <ShopBrowser products={products} locale={locale} />
     </Container>
   );
 }

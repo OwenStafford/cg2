@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { clsx } from "clsx";
 import { ProductCard } from "./ProductCard";
@@ -20,24 +20,27 @@ const CATEGORIES: { key: Filter; label: string }[] = [
 export function ShopBrowser({
   products,
   locale,
-  initialCategory,
 }: {
   products: Product[];
   locale: Locale;
-  initialCategory: Filter;
 }) {
   const t = useTranslations("shop");
-  const [active, setActive] = useState<Filter>(initialCategory);
+  // The URL is the single source of truth — so it stays correct whether the
+  // category changes from a tab click here or from any nav link elsewhere.
+  const searchParams = useSearchParams();
+  const raw = searchParams.get("category");
+  const active: Filter =
+    raw === "coffee" || raw === "tea" || raw === "gift" ? raw : "all";
 
-  // Filtering is instant (no navigation); we keep the URL in sync for sharing.
+  // Tab clicks update the URL via the History API: instant, no server
+  // round-trip, and useSearchParams re-renders to reflect it.
   function select(key: Filter) {
-    setActive(key);
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
     if (key === "all") params.delete("category");
     else params.set("category", key);
     const qs = params.toString();
-    window.history.replaceState(
+    window.history.pushState(
       null,
       "",
       qs ? `${window.location.pathname}?${qs}` : window.location.pathname,
