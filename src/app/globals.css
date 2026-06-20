@@ -35,3 +35,15 @@ body {
 .font-serif {
   font-family: var(--font-serif), Georgia, serif;
 }
+
+@layer base {
+  /* Buttons are actions, not text: arrow cursor, not selectable. */
+  button {
+    cursor: default;
+    user-select: none;
+  }
+  /* Links are navigation: hand cursor. */
+  a {
+    cursor: pointer;
+  }
+}

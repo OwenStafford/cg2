@@ -20,7 +20,10 @@ export function LocaleSwitcher() {
           disabled={isPending || l === locale}
           onClick={() =>
             startTransition(() => {
-              router.replace(pathname, { locale: l });
+              const query = Object.fromEntries(
+                new URLSearchParams(window.location.search),
+              );
+              router.replace({ pathname, query }, { locale: l });
             })
           }
           className={

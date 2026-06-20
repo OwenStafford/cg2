@@ -35,6 +35,8 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 - `shop/[slug]/` — product detail
 - `cart/` — cart page
 - `checkout/` + `checkout/success/` — checkout entry + post-payment success
+- `account/` — sign in / sign up / account view; `account/update-password/` — password-reset landing
+- `/auth/callback` (route handler, outside `[locale]`) — Supabase email-confirm / recovery callback
 
 ### Data layer *(commits: `supabase config`, `drizzle and db setup`)*
 - Supabase Postgres + Drizzle schema in `src/lib/db/schema.ts`.
@@ -64,6 +66,18 @@ A **bilingual (EN/FR) coffee e-commerce site**.
 - `src/components/CheckoutButton.tsx` — fetches `client_secret` then opens the modal (errors like out-of-stock surface before the modal opens).
 - Deps added: `@stripe/stripe-js`, `@stripe/react-stripe-js`.
 - Webhook/order pipeline unchanged; success page still reached via `return_url`.
+
+### Accounts & auth (email + password) *(2026-06-19)* — **DONE (code)**
+- Supabase email/password auth: sign up, sign in, sign out, forgot-password, set-new-password.
+- `src/app/[locale]/account/page.tsx` — auth form when logged out; account view (email, orders placeholder, sign-out) when logged in.
+- `src/app/[locale]/account/actions.ts` — server actions (`signIn`, `signUp`, `signOut`, `requestPasswordReset`, `updatePassword`); messages localized via `getTranslations`.
+- `src/components/AuthForm.tsx` — client form with sign-in / sign-up / forgot-password modes (`useActionState`).
+- `src/app/[locale]/account/update-password/` + `src/components/UpdatePasswordForm.tsx` — reset-flow landing page.
+- `src/app/auth/callback/route.ts` — handles email-confirm + recovery links (both PKCE `code` and `token_hash` OTP flows).
+- `src/lib/auth-types.ts` — shared `AuthState` type (kept out of the `"use server"` file).
+- `src/proxy.ts` — matcher now excludes `/auth` so the intl middleware doesn't locale-redirect the callback.
+- i18n: new `auth` namespace (EN/FR).
+- **⚠️ Requires Supabase dashboard config before the email flows work — see "Supabase auth setup" below.**
 
 ---
 
@@ -99,6 +113,20 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 
 ---
 
+## Supabase auth setup (required for account email flows)
+
+In the Supabase dashboard (**Authentication**):
+
+1. **URL Configuration** → set **Site URL** to `http://localhost:3000` (dev). Under **Redirect URLs**, add `http://localhost:3000/auth/callback`. (Add the production URLs too when deploying.)
+2. **Email confirmation** (Providers → Email → "Confirm email"):
+   - **For quick local testing:** turn it **OFF** — sign-up then logs in immediately, no email round-trip.
+   - **For production:** leave it **ON**. The default email template uses `{{ .ConfirmationURL }}`, which redirects back to the Site URL with a `?code=` — our `/auth/callback` route exchanges that for a session. (No template edit needed for the code flow.)
+3. Password reset works the same way: the reset email redirects to `/auth/callback?next=/<locale>/account/update-password`.
+
+New Supabase projects default to **confirmation ON**.
+
+---
+
 ## Roadmap / TODO 🚧
 
 *(no particular order unless noted)*
@@ -110,8 +138,8 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 - [ ] **Set up product pictures properly** — image hosting/optimization (Supabase Storage or Vercel/Next image pipeline), wire `image_url`.
 - [ ] **SSR / performance optimization** — maximize server rendering, caching, `next/image`, etc. Make it "snappy". Owner wants to optimize heavily.
 - [ ] **Mobile support** — responsive across breakpoints.
-- [ ] **Accounts & auth** — customer sign-up / login. Supabase Auth is already wired (`@supabase/ssr`, helpers in `src/lib/supabase/`). The `customers` table + `orders.customer_id` FK already exist to hang accounts off of.
-- [ ] **Past orders & order-status page** — logged-in customers can view their order history + status (table/list). Data already captured in `orders` / `order_items`; needs to link orders to the customer account (via `customer_id` / email) and a UI to display them. Depends on **Accounts & auth**.
+- [x] ~~**Accounts & auth**~~ — ✅ done 2026-06-19 (email + password via Supabase). See "What's Been Done". *Still needs the Supabase dashboard config below to be exercised end-to-end.*
+- [ ] **Past orders & order-status page** — logged-in customers can view their order history + status (table/list). Data already captured in `orders` / `order_items`; needs to link orders to the customer account (via `customer_id` / email) and a UI to display them. **Now unblocked** (auth is in). Account page already has a placeholder slot for this.
 - [ ] **Resend (transactional email)** — set up [Resend](https://resend.com) to email customers about order confirmation/status, etc. Hook into the Stripe webhook (`checkout.session.completed`) for the order-confirmation email; later wire status-change emails. Needs a Resend API key + verified sending domain.
 - [ ] **Logging / health dashboard** — observability so failures are debuggable (webhook errors, failed payments, server errors). Prefer **non-Google** options (e.g. Sentry for errors, Vercel's built-in logs/observability, Supabase logs, Axiom/Better Stack/Logtail) — only fall back to GCP if unavoidable. Could surface a health/logs view on the admin page. Owner's priority: "make sure I can debug if something goes wrong."
 - [ ] **Admin dashboard** *(explicitly last)* — manage products/orders. (Natural home for the logging/health view above.)
@@ -129,3 +157,4 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 - Product text fields are **bilingual** (`*_en` / `*_fr`) — keep both in sync when importing/editing.
 - Order line items **snapshot** name/price at purchase, so later product edits don't rewrite history.
 - **Stripe SDK (v22) pins a 2026 API version** — `ui_mode` values are `embedded_page` / `hosted_page` (NOT the older `embedded` / `hosted`). Watch for renamed enums vs. older Stripe docs/examples.
+- **Cursor/select convention** (base rules in `globals.css`): `button` → `cursor: default` + `user-select: none`; `a` → `cursor: pointer`. For `<button>`s that act as links, add `cursor-pointer` (no underline, per owner preference).
