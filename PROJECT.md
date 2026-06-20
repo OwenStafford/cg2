@@ -112,6 +112,7 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 - [ ] **Mobile support** — responsive across breakpoints.
 - [ ] **Accounts & auth** — customer sign-up / login. Supabase Auth is already wired (`@supabase/ssr`, helpers in `src/lib/supabase/`). The `customers` table + `orders.customer_id` FK already exist to hang accounts off of.
 - [ ] **Past orders & order-status page** — logged-in customers can view their order history + status (table/list). Data already captured in `orders` / `order_items`; needs to link orders to the customer account (via `customer_id` / email) and a UI to display them. Depends on **Accounts & auth**.
+- [ ] **Resend (transactional email)** — set up [Resend](https://resend.com) to email customers about order confirmation/status, etc. Hook into the Stripe webhook (`checkout.session.completed`) for the order-confirmation email; later wire status-change emails. Needs a Resend API key + verified sending domain.
 - [ ] **Admin dashboard** *(explicitly last)* — manage products/orders.
 
 ### Go-live checklist (for when leaving test mode)
