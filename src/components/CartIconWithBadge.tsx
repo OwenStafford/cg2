@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { ShoppingBag } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useCartStore, selectItemCount } from "@/lib/cart";
 
 export function CartIconWithBadge({ ariaLabel }: { ariaLabel: string }) {
   const count = useCartStore(selectItemCount);
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
-  const visible = mounted && count > 0;
+  // Cart is client-persisted; avoid SSR/client mismatch by gating on hydration.
+  const hydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+  const visible = hydrated && count > 0;
 
   return (
     <Link

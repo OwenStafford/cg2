@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { useTranslations } from "next-intl";
 import { Minus, Plus, X } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -21,10 +21,15 @@ export function CartContents({ locale }: { locale: Locale }) {
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const removeItem = useCartStore((s) => s.removeItem);
 
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  // The cart is persisted client-side, so render a placeholder until hydrated
+  // to avoid an SSR/client mismatch. (false on the server, true on the client.)
+  const hydrated = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
-  if (!mounted) {
+  if (!hydrated) {
     return <div className="mt-10 h-40" aria-hidden="true" />;
   }
 
