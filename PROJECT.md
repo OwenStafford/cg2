@@ -113,7 +113,8 @@ The `stripe listen` signing secret is stable per account+machine (set-and-forget
 - [ ] **Accounts & auth** — customer sign-up / login. Supabase Auth is already wired (`@supabase/ssr`, helpers in `src/lib/supabase/`). The `customers` table + `orders.customer_id` FK already exist to hang accounts off of.
 - [ ] **Past orders & order-status page** — logged-in customers can view their order history + status (table/list). Data already captured in `orders` / `order_items`; needs to link orders to the customer account (via `customer_id` / email) and a UI to display them. Depends on **Accounts & auth**.
 - [ ] **Resend (transactional email)** — set up [Resend](https://resend.com) to email customers about order confirmation/status, etc. Hook into the Stripe webhook (`checkout.session.completed`) for the order-confirmation email; later wire status-change emails. Needs a Resend API key + verified sending domain.
-- [ ] **Admin dashboard** *(explicitly last)* — manage products/orders.
+- [ ] **Logging / health dashboard** — observability so failures are debuggable (webhook errors, failed payments, server errors). Prefer **non-Google** options (e.g. Sentry for errors, Vercel's built-in logs/observability, Supabase logs, Axiom/Better Stack/Logtail) — only fall back to GCP if unavoidable. Could surface a health/logs view on the admin page. Owner's priority: "make sure I can debug if something goes wrong."
+- [ ] **Admin dashboard** *(explicitly last)* — manage products/orders. (Natural home for the logging/health view above.)
 
 ### Go-live checklist (for when leaving test mode)
 - [ ] Activate Stripe account (business info, bank, tax details).
