@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Container } from "@/components/Container";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { FadeImage } from "@/components/FadeImage";
 import { getProduct, listAllSlugs } from "@/lib/products";
 import { formatPrice } from "@/lib/format";
 import { pageMetadata, SITE_URL } from "@/lib/seo";
-import { blurFor } from "@/lib/blur";
 import type { Locale } from "@/i18n/routing";
 
 export const revalidate = 3600;
@@ -71,15 +70,11 @@ export default async function ProductPage({
       />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <div className="relative aspect-square overflow-hidden rounded-md bg-cream">
-          <Image
+          <FadeImage
             src={product.imageUrl}
             alt={product.name[locale]}
-            fill
             sizes="(min-width: 1024px) 50vw, 100vw"
             priority
-            placeholder="blur"
-            blurDataURL={blurFor(product.imageUrl)}
-            className="object-cover"
           />
         </div>
 

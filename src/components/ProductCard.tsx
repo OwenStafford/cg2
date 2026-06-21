@@ -1,9 +1,8 @@
-import Image from "next/image";
 import { Link } from "@/i18n/navigation";
+import { FadeImage } from "./FadeImage";
 import type { Product } from "@/lib/types";
 import type { Locale } from "@/i18n/routing";
 import { formatPrice } from "@/lib/format";
-import { blurFor } from "@/lib/blur";
 
 export function ProductCard({
   product,
@@ -18,14 +17,11 @@ export function ProductCard({
       className="group block focus:outline-none"
     >
       <div className="relative aspect-square overflow-hidden rounded-md bg-cream">
-        <Image
+        <FadeImage
           src={product.imageUrl}
           alt={product.name[locale]}
-          fill
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
-          placeholder="blur"
-          blurDataURL={blurFor(product.imageUrl)}
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          className="group-hover:scale-105"
         />
       </div>
       <div className="mt-4 space-y-1">
